@@ -9,13 +9,13 @@ import { Issue } from "../interface"
 
 
 
-const getIssue = async( numberIssue:string ):Promise<Issue> => {
+export const getIssue = async( numberIssue:string ):Promise<Issue> => {
     await sleep(2)
     const { data } = await githubApi<Issue>(`/issues/${numberIssue}`)    
     return data
 }
 
-const getIssueComments = async( numberIssue:string ):Promise<Issue[]> => {
+export const getIssueComments = async( numberIssue:string ):Promise<Issue[]> => {
     await sleep(2)
     const { data } = await githubApi<Issue[]>(`/issues/${numberIssue}/comments`)    
     return data
