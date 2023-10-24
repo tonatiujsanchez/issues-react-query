@@ -21,7 +21,7 @@ export const useLabels = () => {
         queryKey: ['labels'],
         queryFn: getLabels,
         // refetchOnWindowFocus: false, //Deshabilita que realice una petición cada vez que se regresa el foco a la aplicación
-        staleTime: 1000 * 60 * 60,       //Establece por cuanto tiempo la data esta marcada como 'fresca'.
+        // staleTime: 1000 * 60 * 60,       //Establece por cuanto tiempo la data esta marcada como 'fresca'.
         // initialData: [],
         placeholderData: [
             {
