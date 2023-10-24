@@ -12,8 +12,12 @@ import { Issue } from "../interface"
 const getIssue = async( numberIssue:string ):Promise<Issue> => {
     await sleep(2)
     const { data } = await githubApi<Issue>(`/issues/${numberIssue}`)    
-    console.log(data)
-    
+    return data
+}
+
+const getIssueComments = async( numberIssue:string ):Promise<Issue[]> => {
+    await sleep(2)
+    const { data } = await githubApi<Issue[]>(`/issues/${numberIssue}/comments`)    
     return data
 }
 
@@ -23,8 +27,15 @@ export const useIssue = ( numberIssue:string ) => {
         queryKey: ['issue', numberIssue],
         queryFn: ()=> getIssue( numberIssue )
     })
+
+    const issueCommentsQuery = useQuery({
+        queryKey: ['issueComments', numberIssue, 'comments'],
+        queryFn: ()=> getIssueComments( `${ issueQuery.data!.number }` ),
+        enabled: issueQuery.data !==  undefined 
+    })
     
     return {
-        issueQuery
+        issueQuery,
+        issueCommentsQuery
     }
 }
