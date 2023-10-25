@@ -1,26 +1,41 @@
 import { FC } from 'react'
 import { IssueItem } from './IssueItem'
 
-import { Issue } from '../interface'
+import { Issue, State } from '../interface'
 
 
 interface Props {
-    issues: Issue[]
+    issues       : Issue[]
+    state?       : State
+    onStateChange: ( newState?:State )=>void 
 }
 
-export const IssueList:FC<Props> = ({ issues }) => {
+export const IssueList:FC<Props> = ({ issues, state, onStateChange }) => {
     return (
         <div className="card border-white">
             <div className="card-header bg-dark">
                 <ul className="nav nav-pills card-header-pills">
-                    <li className="nav-item">
-                        <a className="nav-link active">All</a>
+                    <li 
+                        className="nav-item"
+                        onClick={ ()=> onStateChange() }
+                    >
+                        <a className={`nav-link ${!state ? 'active' : ''}`}>All</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link">Open</a>
+                    <li 
+                        className="nav-item"
+                        onClick={ ()=> onStateChange(State.Open) }
+                    >
+                        <a className={`nav-link ${state === State.Open ? 'active' : ''}`}>
+                            Open
+                        </a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link">Closed</a>
+                    <li 
+                        className="nav-item"
+                        onClick={ ()=> onStateChange(State.Closed) }
+                    >
+                        <a className={`nav-link ${state === State.Closed ? 'active' : ''}`}>
+                            Closed
+                        </a>
                     </li>
                 </ul>
             </div>

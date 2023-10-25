@@ -6,13 +6,16 @@ import { IssueList } from '../components/IssueList'
 import { LabelPicker } from '../components/LabelPicker'
 import { Loading } from '../../shared/components'
 
+import { State } from '../interface'
+
 
 export const ListView = () => {
 
 
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
+  const [state, setState] = useState<State>()
 
-  const { issuesQuery } = useIssues()
+  const { issuesQuery } = useIssues({ state, labels: selectedLabels })
 
   const onChangeLabel= (label: string) => {
       ( selectedLabels.includes(label) )
@@ -27,7 +30,13 @@ export const ListView = () => {
         {
           issuesQuery.isLoading
           ? ( <Loading /> )
-          : ( <IssueList issues={ issuesQuery.data! } /> )
+          : ( 
+            <IssueList
+              issues={ issuesQuery.data! }
+              state={ state }
+              onStateChange = { ( newState?:State )=> setState( newState ) }
+            />
+          )
         }
       </div>
       

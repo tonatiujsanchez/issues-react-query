@@ -10,7 +10,7 @@ const getLabels = async():Promise<Label[]> => {
 
     await sleep(2)
     
-    const { data } = await githubApi<Label[]>('/labels')
+    const { data } = await githubApi<Label[]>('/labels?per_page=100')
     return data
 }
   
